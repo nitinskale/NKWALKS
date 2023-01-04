@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NKWalks.API.Data;
+using NKWalks.API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<NKWalksDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("conStr"));
 });
 
+builder.Services.AddScoped<IResionRepository, ResionRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

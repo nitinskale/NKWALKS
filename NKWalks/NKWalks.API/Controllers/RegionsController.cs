@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NKWalks.API.Models.Domain;
+using NKWalks.API.Repository;
 
 namespace NKWalks.API.Controllers
 {
@@ -7,31 +8,16 @@ namespace NKWalks.API.Controllers
     [Route("API/reg")]
     public class RegionsController : Controller
     {
+        private readonly IResionRepository resionRepository;
+
+        public RegionsController(IResionRepository resionRepository)
+        {
+            this.resionRepository = resionRepository;
+        }
         [HttpGet]
         public IActionResult GetAllRegions()
         {
-            var regions = new List<Region>()
-           {
-               new Region
-               {
-                   Id= Guid.NewGuid(),
-                   Name = "Welington",
-                   Code ="WLG",
-                   Area=227755,
-                   Lat=1.8822,
-                   Long=299.88,
-                   Populate=500000
-               },new Region
-               {
-                   Id= Guid.NewGuid(),
-                   Name = "Auckland",
-                   Code ="Auck",
-                   Area=250000,
-                   Lat=2.8822,
-                   Long=29.88,
-                   Populate=600000
-               }
-           };
+         var regions =  resionRepository.GetAllRegions();
             return Ok(regions);
         }
     }
